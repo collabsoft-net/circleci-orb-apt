@@ -1,0 +1,47 @@
+description: >
+  Atlassian Data Center App Performance Toolkit Dependency Graph generator
+  This generates the dependency graph for the specified app in the required format
+  and stores the results to the workspace and as build artifact
+
+parameters:
+  groupId:
+    type: string
+  artifactId:
+    type: string
+  appKey:
+    type: string
+    default: ""
+  archive:
+    type: string
+    default: ""
+  activeProfiles:
+    type: string
+    default: ""
+
+steps:
+  - run:
+      name: Install NodeJS
+      command: <<include(scripts/install-node.sh)>>
+
+  - run:
+      name: Install Atlassian Maven Plugin Suite
+      command: <<include(scripts/install-amps.sh)>>
+
+  - run:
+      name: Generate dependency graph
+      environment:
+        GROUPID: << parameters.groupId >>
+        ARTIFACTID: << parameters.artifactId >>
+        APPKEY: << parameters.appKey >>
+        ARCHIVE: << parameters.archive >>
+        MAVEN_PROFILES: << parameters.activeProfiles >>
+      command: <<include(scripts/dependencies.sh)>>
+      no_output_timeout: 90m
+
+  - persist_to_workspace:
+      root: /tmp/results
+      paths:
+        - maven_dependency_tree.gv
+
+  - store_artifacts:
+      path: /tmp/results

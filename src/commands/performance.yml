@@ -1,0 +1,79 @@
+description: >
+  Atlassian Data Center App Performance Toolkit performance test (run 1 & 2)
+  This provisions the environment, runs the test, terminates the environment
+  and stores the results to the workspace and as build artifacts
+
+parameters:
+  run:
+    type: enum
+    enum: ["1", "2"]
+  product:
+    type: enum
+    enum: ["jira", "confluence", "bitbucket", "bamboo"]
+  environment:
+    type: string
+  license:
+    type: string
+    default: ""
+  appKey:
+    type: string
+    default: ""
+  archive:
+    type: string
+    default: ""
+  restart_after_install:
+    type: boolean
+    default: false
+  post_provision_script:
+    type: string
+    default: ""
+  post_provision_script_args:
+    type: string
+    default: ""
+
+steps:
+  - run:
+      name: Install prerequisites
+      command: <<include(scripts/install-node.sh)>>
+
+  - run:
+      name: Provision environment
+      environment:
+        PRODUCT: << parameters.product >>
+        ENVIRONMENT: << parameters.environment >>-run-<< parameters.run >>
+        LICENSE: << parameters.license >>
+        POST_PROVISION_SCRIPT: << parameters.post_provision_script >>
+        POST_PROVISION_SCRIPT_ARGS: << parameters.post_provision_script_args >>
+      command: <<include(scripts/provision.sh)>>
+      no_output_timeout: 60m
+      when: always
+
+  - run:
+      name: Run performance test
+      environment:
+        RUN: run<< parameters.run >>
+        PRODUCT: << parameters.product >>
+        ENVIRONMENT: << parameters.environment >>-run-<< parameters.run >>
+        LICENSE: << parameters.license >>
+        APPKEY: << parameters.appKey >>
+        ARCHIVE: << parameters.archive >>
+        RESTART_AFTER_INSTALL: << parameters.restart_after_install >>
+      command: <<include(scripts/performance.sh)>>
+      no_output_timeout: 90m
+
+  - run:
+      name: Teardown environment
+      environment:
+        PRODUCT: << parameters.product >>
+        ENVIRONMENT: << parameters.environment >>-run-<< parameters.run >>
+      command: <<include(scripts/teardown.sh)>>
+      no_output_timeout: 60m
+      when: always
+
+  - persist_to_workspace:
+      root: /tmp/results
+      paths:
+        - run<< parameters.run >>
+
+  - store_artifacts:
+      path: /tmp/results

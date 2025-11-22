@@ -1,0 +1,27 @@
+description: >
+  Atlassian Data Center App Performance Toolkit archiver
+  Collects all the files from the workspace, validates the results
+  and generates an archive that can be shared with Atlassian
+
+parameters:
+  product:
+    type: enum
+    enum: ["jira", "confluence", "bitbucket", "bamboo"]
+
+steps:
+  - attach_workspace:
+      at: /tmp/results
+
+  - run:
+      name: Verify & collect results
+      environment:
+        PRODUCT: << parameters.product >>
+      command: <<include(scripts/pack.sh)>>
+
+  - persist_to_workspace:
+      root: /tmp/results
+      paths:
+        - results.tar.gz
+
+  - store_artifacts:
+      path: /tmp/results/results.tar.gz

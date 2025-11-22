@@ -1,0 +1,75 @@
+description: >
+  Atlassian Data Center App Performance Toolkit Lucene Index Timing test
+  This provisions the environment, runs the test, terminates the environment
+  and stores the results to the workspace and as build artifact
+
+parameters:
+  environment:
+    type: string
+  license:
+    type: string
+    default: ""
+  appKey:
+    type: string
+    default: ""
+  archive:
+    type: string
+    default: ""
+  restart_after_install:
+    type: boolean
+    default: false
+  post_provision_script:
+    type: string
+    default: ""
+  post_provision_script_args:
+    type: string
+    default: ""
+
+steps:
+  - run:
+      name: Install NodeJS
+      command: <<include(scripts/install-node.sh)>>
+
+  - run:
+      name: Install browser support
+      command: <<include(scripts/add-browsers.sh)>>
+
+  - run:
+      name: Provision environment
+      environment:
+        PRODUCT: "jira"
+        ENVIRONMENT: << parameters.environment >>-reindex
+        LICENSE: << parameters.license >>
+        POST_PROVISION_SCRIPT: << parameters.post_provision_script >>
+        POST_PROVISION_SCRIPT_ARGS: << parameters.post_provision_script_args >>
+      command: <<include(scripts/provision.sh)>>
+      no_output_timeout: 60m
+      when: always
+
+  - run:
+      name: Run Lucene Timing Test
+      environment:
+        ENVIRONMENT: << parameters.environment >>-reindex
+        LICENSE: << parameters.license >>
+        APPKEY: << parameters.appKey >>
+        ARCHIVE: << parameters.archive >>
+        RESTART_AFTER_INSTALL: << parameters.restart_after_install >>
+      command: <<include(scripts/reindex.sh)>>
+      no_output_timeout: 90m
+
+  - run:
+      name: Teardown environment
+      environment:
+        PRODUCT: "jira"
+        ENVIRONMENT: << parameters.environment >>-reindex
+      command: <<include(scripts/teardown.sh)>>
+      no_output_timeout: 60m
+      when: always
+
+  - persist_to_workspace:
+      root: /tmp/results
+      paths:
+        - lucene-reindex.png
+
+  - store_artifacts:
+      path: /tmp/results

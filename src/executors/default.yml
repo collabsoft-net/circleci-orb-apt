@@ -1,0 +1,5 @@
+description: >
+  Atlassian Data Center App Performance Toolkit CircleCI executor
+machine:
+  image: ubuntu-2204:current
+resource_class: large

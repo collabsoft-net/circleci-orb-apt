@@ -1,0 +1,37 @@
+description: >
+  Atlassian Data Center App Performance Toolkit Software Composition Analysis (SCA) scanner
+  This generates the SCA vulnerability report for the specified app in the required format
+  and stores the results to the workspace and as build artifact
+
+parameters:
+  apiKey:
+    type: string
+    default: ""
+  appKey:
+    type: string
+    default: ""
+  archive:
+    type: string
+    default: ""
+
+steps:
+  - run:
+      name: Install NodeJS
+      command: <<include(scripts/install-node.sh)>>
+
+  - run:
+      name: Scan for vulnerabilities
+      environment:
+        APIKEY: << parameters.apiKey >>
+        ARCHIVE: << parameters.archive >>
+        APPKEY: << parameters.appKey >>
+      command: <<include(scripts/sca.sh)>>
+      no_output_timeout: 90m
+
+  - persist_to_workspace:
+      root: /tmp/results
+      paths:
+        - dependency-check-report.html
+
+  - store_artifacts:
+      path: /tmp/results

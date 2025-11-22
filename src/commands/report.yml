@@ -1,0 +1,33 @@
+description: >
+  Atlassian Data Center App Performance Toolkit report generation (performance & scalability)
+  This attached the workspace to /tmp/results and generates the performance and scalability reports.
+  It expects the run results to be in `performance/run1|2` and `scalability/run3|4|5` directories
+  to be available directly in the workspace.
+
+parameters:
+  product:
+    type: enum
+    enum: ["jira", "confluence", "bitbucket", "bamboo"]
+
+steps:
+  - run:
+      name: Install prerequisites
+      command: <<include(scripts/install-node.sh)>>
+
+  - attach_workspace:
+      at: /tmp/results
+
+  - run:
+      name: Generate reports
+      environment:
+        PRODUCT: << parameters.product >>
+      command: <<include(scripts/reports.sh)>>
+
+  - persist_to_workspace:
+      root: /tmp/results
+      paths:
+        - scale_profile
+        - performance_profile
+
+  - store_artifacts:
+      path: /tmp/results
