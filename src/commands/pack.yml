@@ -7,6 +7,9 @@ parameters:
   product:
     type: enum
     enum: ["jira", "confluence", "bitbucket", "bamboo"]
+  filename:
+    type: string
+    default: results.tar.gz
 
 steps:
   - attach_workspace:
@@ -16,6 +19,7 @@ steps:
       name: Verify & collect results
       environment:
         PRODUCT: << parameters.product >>
+        NAME: << parameters.filename >>
       command: <<include(scripts/pack.sh)>>
 
   - persist_to_workspace:
@@ -24,4 +28,4 @@ steps:
         - results.tar.gz
 
   - store_artifacts:
-      path: /tmp/results/results.tar.gz
+      path: /tmp/results/*.tar.gz
