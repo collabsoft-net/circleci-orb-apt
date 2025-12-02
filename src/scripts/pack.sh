@@ -126,8 +126,6 @@ fi
 
 echo "✔ All required test results are available"
 
-RESULTS_FILE="/tmp/results/$NAME"
-
 echo Creating archive of test results
 sudo tar -czf /tmp/results.tar.gz -C /tmp/results .
-sudo mv /tmp/results.tar.gz $RESULTS_FILE
+sudo mv /tmp/results.tar.gz "/tmp/results/$NAME"
