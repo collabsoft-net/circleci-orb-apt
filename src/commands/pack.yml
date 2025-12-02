@@ -25,7 +25,7 @@ steps:
   - persist_to_workspace:
       root: /tmp/results
       paths:
-        - results.tar.gz
+        - "*.tar.gz"
 
   - store_artifacts:
-      path: /tmp/results/*.tar.gz
+      path: "/tmp/results/*.tar.gz"
