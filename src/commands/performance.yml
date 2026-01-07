@@ -70,7 +70,6 @@ steps:
       name: Teardown environment
       environment:
         PRODUCT: << parameters.product >>
-        VERSION: << parameters.version >>
         ENVIRONMENT: << parameters.environment >>-run-<< parameters.run >>
       command: <<include(scripts/teardown.sh)>>
       no_output_timeout: 60m
