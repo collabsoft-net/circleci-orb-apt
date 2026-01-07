@@ -16,7 +16,7 @@ then
   ARGS="${ARGS} --license ${LICENSE}"
 fi
 
-sudo -E dcdx apt provision $AGRS
+sudo -E dcdx apt provision $ARGS
 
 if [ "$POST_PROVISION_SCRIPT" != "" ];
 then
