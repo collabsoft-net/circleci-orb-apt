@@ -39,6 +39,11 @@ then
   ARGS="${ARGS} --license ${LICENSE}"
 fi
 
+if [ -n "${VERSION}" ];
+then
+  ARGS="${ARGS} --tag ${VERSION}"
+fi
+
 if [ "${RESTART_AFTER_INSTALL}" == "true" ];
 then
   ARGS="${ARGS} --restartAfterInstall"

@@ -4,12 +4,19 @@
 sudo rm -rf /opt/dcapt
 sudo git clone https://github.com/atlassian/dc-app-performance-toolkit.git /opt/dcapt
 
-if [ -z "${LICENSE}" ];
+ARGS="--product $PRODUCT --environment $ENVIRONMENT --cwd /opt/dcapt -y"
+
+if [ -n "${VERSION}" ];
 then
-  sudo -E dcdx apt provision --product $PRODUCT --environment $ENVIRONMENT --cwd /opt/dcapt -y
-else
-  sudo -E dcdx apt provision --product $PRODUCT --environment $ENVIRONMENT --license $LICENSE --cwd /opt/dcapt -y
+  ARGS="${ARGS} --tag ${VERSION}"
 fi
+
+if [ -n "${LICENSE}" ];
+then
+  ARGS="${ARGS} --license ${LICENSE}"
+fi
+
+sudo -E dcdx apt provision $AGRS
 
 if [ "$POST_PROVISION_SCRIPT" != "" ];
 then

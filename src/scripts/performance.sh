@@ -16,6 +16,11 @@ then
   fi
 fi
 
+if [ -n "${VERSION}" ];
+then
+  ARGS="${ARGS} --tag ${VERSION}"
+fi
+
 if [ -n "${LICENSE}" ];
 then
   ARGS="${ARGS} --license ${LICENSE}"
