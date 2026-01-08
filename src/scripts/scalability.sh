@@ -20,6 +20,7 @@ fi
 if [ -f "$JMX_FILE" ];
 then
   sudo cp $JMX_FILE /opt/dcapt/app/jmeter/${PRODUCT}.jmx
+  EXTRA_ARGS="--jmeter"
 fi
 
 ARGS="--product $PRODUCT --environment $ENVIRONMENT --outputDir /tmp/results --ts scalability --cwd /opt/dcapt --force ${EXTRA_ARGS}"
