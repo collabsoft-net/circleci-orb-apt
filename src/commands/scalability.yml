@@ -49,6 +49,10 @@ steps:
       command: <<include(scripts/install-node.sh)>>
 
   - run:
+      name: Install Git LFS
+      command: <<include(scripts/install-lfs.sh)>>
+
+  - run:
       name: Install browser support
       command: <<include(scripts/add-browsers.sh)>>
 
