@@ -1,0 +1,50 @@
+description: >
+  Atlassian Data Center App Performance Toolkit prerequisites
+  Install all the tools required for running the Atlassian Data
+  Center App Performance Toolkit
+
+parameters:
+  amps:
+    type: boolean
+    default: false
+  node:
+    type: boolean
+    default: true
+  git-lfs:
+    type: boolean
+    default: true
+  browsers:
+    type: boolean
+    default: false
+
+steps:
+  - attach_workspace:
+      at: /tmp/results
+
+  - when:
+    condition: << parameters.amps >>
+    steps:
+      - run:
+          name: Install Atlassian Maven Plugin Suite
+          command: <<include(scripts/install-amps.sh)>>
+
+  - when:
+    condition: << parameters.node >>
+    steps:
+      - run:
+          name: Install NodeJS
+          command: <<include(scripts/install-node.sh)>>
+
+  - when:
+    condition: << parameters.git-lfs >>
+    steps:
+      - run:
+          name: Install Git LFS
+          command: <<include(scripts/install-lfs.sh)>>
+
+  - when:
+    condition: << parameters.browsers >>
+    steps:
+      - run:
+          name: Install browser support
+          command: <<include(scripts/add-browsers.sh)>>
