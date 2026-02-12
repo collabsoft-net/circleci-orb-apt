@@ -10,7 +10,7 @@ parameters:
   node:
     type: boolean
     default: true
-  git-lfs:
+  git_lfs:
     type: boolean
     default: true
   browsers:
