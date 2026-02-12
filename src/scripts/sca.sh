@@ -11,7 +11,13 @@ fi
 
 if [ -n "${ARCHIVE}" ];
 then
-  ARGS="--archive ${ARCHIVE} ${ARGS}"
+  if [ -f "${ARCHIVE}" ]
+  then
+    ARGS="--archive ${ARCHIVE} ${ARGS}"
+  else
+    echo "Unable to run vulnerability scanner, provided archive '${ARCHIVE}' not found"
+    exit 1
+  fi
 fi
 
 if [ "${FAILONERROR}" == "1" ];
