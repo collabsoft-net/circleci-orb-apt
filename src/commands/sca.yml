@@ -13,6 +13,9 @@ parameters:
   archive:
     type: string
     default: ""
+  failOnError:
+    type: boolean
+    default: true
 
 steps:
   - run:
@@ -25,6 +28,7 @@ steps:
         APIKEY: << parameters.apiKey >>
         ARCHIVE: << parameters.archive >>
         APPKEY: << parameters.appKey >>
+        FAILONERROR: << parameters.failOnError >>
       command: <<include(scripts/sca.sh)>>
       no_output_timeout: 90m
 

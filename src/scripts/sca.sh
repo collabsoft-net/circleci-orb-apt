@@ -14,6 +14,11 @@ then
   ARGS="--archive ${ARCHIVE} ${ARGS}"
 fi
 
+if [ "${FAILONERROR}" === "1" ];
+then
+  ARGS="--failOnError ${ARGS}"
+fi
+
 if [ -n "${APIKEY}" ];
 then
   sudo dcdx apt sca --nvdApiKey $APIKEY $ARGS
