@@ -14,7 +14,7 @@ then
   ARGS="--archive ${ARCHIVE} ${ARGS}"
 fi
 
-if [ "${FAILONERROR}" === "1" ];
+if [ "${FAILONERROR}" == "1" ];
 then
   ARGS="--failOnError ${ARGS}"
 fi
