@@ -36,7 +36,7 @@ steps:
           command: <<include(scripts/install-node.sh)>>
 
   - when:
-    condition: << parameters.git-lfs >>
+    condition: << parameters.git_lfs >>
     steps:
       - run:
           name: Install Git LFS
