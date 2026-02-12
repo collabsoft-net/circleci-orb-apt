@@ -22,29 +22,29 @@ steps:
       at: /tmp/results
 
   - when:
-    condition: << parameters.amps >>
-    steps:
-      - run:
-          name: Install Atlassian Maven Plugin Suite
-          command: <<include(scripts/install-amps.sh)>>
+      condition: << parameters.amps >>
+      steps:
+        - run:
+            name: Install Atlassian Maven Plugin Suite
+            command: <<include(scripts/install-amps.sh)>>
 
   - when:
-    condition: << parameters.node >>
-    steps:
-      - run:
-          name: Install NodeJS
-          command: <<include(scripts/install-node.sh)>>
+      condition: << parameters.node >>
+      steps:
+        - run:
+            name: Install NodeJS
+            command: <<include(scripts/install-node.sh)>>
 
   - when:
-    condition: << parameters.git_lfs >>
-    steps:
-      - run:
-          name: Install Git LFS
-          command: <<include(scripts/install-lfs.sh)>>
+      condition: << parameters.git_lfs >>
+      steps:
+        - run:
+            name: Install Git LFS
+            command: <<include(scripts/install-lfs.sh)>>
 
   - when:
-    condition: << parameters.browsers >>
-    steps:
-      - run:
-          name: Install browser support
-          command: <<include(scripts/add-browsers.sh)>>
+      condition: << parameters.browsers >>
+      steps:
+        - run:
+            name: Install browser support
+            command: <<include(scripts/add-browsers.sh)>>
