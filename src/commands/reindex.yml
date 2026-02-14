@@ -4,6 +4,9 @@ description: >
   and stores the results to the workspace and as build artifact
 
 parameters:
+  version:
+    type: string
+    default: ""
   environment:
     type: string
   license:
@@ -42,6 +45,7 @@ steps:
       name: Provision environment
       environment:
         PRODUCT: "jira"
+        VERSION: << parameters.version >>
         ENVIRONMENT: << parameters.environment >>-reindex
         LICENSE: << parameters.license >>
         POST_PROVISION_SCRIPT: << parameters.post_provision_script >>
