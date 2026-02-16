@@ -5,6 +5,11 @@ npx -y puppeteer browsers install chrome@130.0.6723.116
 
 ARGS="--environment $ENVIRONMENT --outputDir /tmp/results --ts lucene --force"
 
+if [ -n "${VERSION}" ];
+then
+  ARGS="${ARGS} --tag ${VERSION}"
+fi
+
 if [ -n "${APPKEY}" ];
 then
   ARGS="--appKey ${APPKEY} ${ARGS}"

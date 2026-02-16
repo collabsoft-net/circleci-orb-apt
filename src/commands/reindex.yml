@@ -57,6 +57,7 @@ steps:
   - run:
       name: Run Lucene Timing Test
       environment:
+        VERSION: << parameters.version >>
         ENVIRONMENT: << parameters.environment >>-reindex
         LICENSE: << parameters.license >>
         APPKEY: << parameters.appKey >>
