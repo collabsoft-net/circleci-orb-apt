@@ -92,6 +92,7 @@ else
 fi
 
 if [ "${INCLUDE_PERFORMANCE_TESTS}" == "1" ];
+then
   if [ ! -f /tmp/results/performance_profile/performance_profile.csv ];
   then
     echo "✘ Performance profile report not found"
@@ -127,7 +128,7 @@ then
     echo "- Lucene Timing Test is not included"  
   fi
 else
-    echo "- Lucene Timing Test not required"
+  echo "- Lucene Timing Test not required"
 fi
 
 if [ "${INCLUDE_DEPENDENCIES}" == "1" ];
