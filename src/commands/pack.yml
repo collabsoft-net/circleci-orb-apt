@@ -7,6 +7,21 @@ parameters:
   product:
     type: enum
     enum: ["jira", "confluence", "bitbucket", "bamboo"]
+  include_performance_tests:
+    type: boolean
+    default: true
+  include_scalability_tests:
+    type: boolean
+    default: true
+  include_reindex:
+    type: boolean
+    default: true
+  include_dependencies:
+    type: boolean
+    default: true
+  include_vulnerabilities:
+    type: boolean
+    default: true
   filename:
     type: string
     default: results.tar.gz
@@ -20,6 +35,11 @@ steps:
       environment:
         PRODUCT: << parameters.product >>
         NAME: << parameters.filename >>
+        INCLUDE_PERFORMANCE_TESTS: << parameters.include_performance_tests >>
+        INCLUDE_SCALABILITY_TESTS: << parameters.include_scalability_tests >>
+        INCLUDE_REINDEX: << parameters.include_reindex >>
+        INCLUDE_DEPENDENCIES: << parameters.include_dependencies >>
+        INCLUDE_VULNERABILITIES: << parameters.include_vulnerabilities >>
       command: <<include(scripts/pack.sh)>>
 
   - persist_to_workspace:
