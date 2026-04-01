@@ -45,6 +45,11 @@ then
   ARGS="${ARGS} --tag ${VERSION}"
 fi
 
+if [ -n "${QUERY}" ];
+then
+  ARGS="${ARGS} --query \"${QUERY}\""
+fi
+
 if [ "${RESTART_AFTER_INSTALL}" == "true" ];
 then
   ARGS="${ARGS} --restartAfterInstall"

@@ -36,6 +36,9 @@ parameters:
   jmx_file:
     type: string
     default: ""
+  query:
+    type: string
+    default: ""
   post_provision_script:
     type: string
     default: ""
@@ -83,6 +86,7 @@ steps:
         EXTENSION_FILE: << parameters.extension_file >>
         LOCUST_FILE: << parameters.locust_file >>
         JMX_FILE: << parameters.jmx_file >>
+        QUERY: << parameters.query >>
       command: <<include(scripts/scalability.sh)>>
       no_output_timeout: 90m
 
