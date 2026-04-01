@@ -47,7 +47,7 @@ fi
 
 if [ -n "${QUERY}" ];
 then
-  ARGS="${ARGS} --query \"${QUERY}\""
+  ARGS="${ARGS} --query ${QUERY}"
 fi
 
 if [ "${RESTART_AFTER_INSTALL}" == "true" ];
