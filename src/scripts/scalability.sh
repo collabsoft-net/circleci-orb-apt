@@ -53,7 +53,7 @@ fi
 if [ -n "${QUERY}" ];
 then
   echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt ${RUN} ${ARGS} --query \"${QUERY}\"'"
-  sudo -E dcdx apt $RUN $ARGS --query \"${QUERY}\"
+  sudo -E dcdx apt $RUN $ARGS --query "${QUERY}"
 else
   echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt ${RUN} ${ARGS}'"
   sudo -E dcdx apt $RUN $ARGS
