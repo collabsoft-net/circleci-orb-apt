@@ -45,18 +45,19 @@ then
   ARGS="${ARGS} --tag ${VERSION}"
 fi
 
-if [ -n "${QUERY}" ];
-then
-  ARGS="${ARGS} --query \"${QUERY}\""
-fi
-
 if [ "${RESTART_AFTER_INSTALL}" == "true" ];
 then
   ARGS="${ARGS} --restartAfterInstall"
 fi
 
-echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt ${RUN} ${ARGS}'"
+if [ -n "${QUERY}" ];
+then
+  echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt ${RUN} ${ARGS} --query \"${QUERY}\"'"
+  sudo -E dcdx apt $RUN $ARGS --query \"${QUERY}\"
+else
+  echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt ${RUN} ${ARGS}'"
+  sudo -E dcdx apt $RUN $ARGS
+fi
 
-sudo -E dcdx apt $RUN $ARGS
 sudo mv /tmp/results/scalability/$RUN /tmp/results/
 sudo rm -rf /tmp/results/scalability
