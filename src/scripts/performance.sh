@@ -31,6 +31,7 @@ then
   ARGS="${ARGS} --restartAfterInstall"
 fi
 
+echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt ${RUN} ${ARGS}'"
 sudo -E dcdx apt $RUN $ARGS
 sudo mv /tmp/results/performance/$RUN /tmp/results/
 sudo rm -rf /tmp/results/performance

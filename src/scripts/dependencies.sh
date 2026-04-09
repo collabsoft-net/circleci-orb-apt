@@ -18,4 +18,5 @@ then
   ARGS="-P ${MAVEN_PROFILES} ${ARGS}"
 fi
 
+echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt dependencies ${ARGS}'"
 sudo dcdx apt dependencies $ARGS

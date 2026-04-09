@@ -30,5 +30,6 @@ then
   ARGS="${ARGS} --restartAfterInstall"
 fi
 
+echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt reindex ${ARGS}'"
 dcdx apt reindex $ARGS
 mv /tmp/results/lucene/reindex/lucene-reindex.png /tmp/results/lucene-reindex.png

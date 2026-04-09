@@ -16,6 +16,7 @@ then
   ARGS="${ARGS} --license ${LICENSE}"
 fi
 
+echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt provision ${ARGS}'"
 sudo -E dcdx apt provision $ARGS
 
 if [ "$POST_PROVISION_SCRIPT" != "" ];

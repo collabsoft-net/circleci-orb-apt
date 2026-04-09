@@ -27,9 +27,11 @@ fi
 
 if [ -n "${APIKEY}" ];
 then
+  echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt sca --nvdApiKey ${APIKEY} ${ARGS}'"
   sudo dcdx apt sca --nvdApiKey $APIKEY $ARGS
 elif [ -n "${NVD_API_KEY}" ];
 then
+  echo "Running DC App Performance Tookit with the following arguments: 'dcdx apt sca --nvdApiKey ${NVD_API_KEY} ${ARGS}'"
   sudo dcdx apt sca --nvdApiKey $NVD_API_KEY $ARGS
 else
   echo "Either the 'apiKey' parameter or 'NVD_API_KEY' environment variable are required"
