@@ -4,6 +4,11 @@
 sudo rm -rf /opt/dcapt
 sudo git clone https://github.com/atlassian/dc-app-performance-toolkit.git /opt/dcapt
 
+if [ -f "$CONFTEST_FILE" ];
+then
+  sudo cp $CONFTEST_FILE /opt/dcapt/app/selenium_ui/conftest.py
+fi
+
 if [ -f "$EXTENSION_FILE" ];
 then
   sudo cp $EXTENSION_FILE /opt/dcapt/app/extension/${PRODUCT}/extension_ui.py

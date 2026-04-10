@@ -45,6 +45,9 @@ parameters:
   post_provision_script_args:
     type: string
     default: ""
+  conftest_file:
+    type: string
+    default: ""
 
 steps:
   - run:
@@ -83,6 +86,7 @@ steps:
         APPKEY: << parameters.appKey >>
         ARCHIVE: << parameters.archive >>
         RESTART_AFTER_INSTALL: << parameters.restart_after_install >>
+        CONFTEST_FILE: << parameters.conftest_file >>
         EXTENSION_FILE: << parameters.extension_file >>
         LOCUST_FILE: << parameters.locust_file >>
         JMX_FILE: << parameters.jmx_file >>
